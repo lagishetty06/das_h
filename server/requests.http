@@ -1,0 +1,152 @@
+### ---------------------------
+### AUTHENTICATION WORKFLOW
+### ---------------------------
+# This section tests the entire user registration and login process.
+
+### 1. Register a new user
+# This request will create a new user and trigger OTPs to be sent to the email and phone number provided.
+# The response will contain a `userId` which you need for the next step.
+POST https://dash-decisive-assistant-for-scheduling.onrender.com/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Vamshi Krishna",
+  "email": "vamshi.daripelli2005@gmail.com",
+  "phoneNumber": "+918328282308",
+  "password": "123456"
+}
+
+### 2. Verify OTPs to activate the account
+# After registering, paste the `userId` from the response above.
+# Then, check your email and phone for the OTP codes and paste them here.
+POST https://dash-decisive-assistant-for-scheduling.onrender.com/api/auth/verify-otp
+Content-Type: application/json
+
+{
+  "userId": "68f634c32eecac222ba3fbd6",
+  "emailOtp": 707951,
+  "phoneOtp": 219590
+}
+
+### 3. Login with the verified account
+# This request will log in the user and return a JWT token.
+# The @authToken variable will automatically store the token for use in subsequent requests.
+### @name login
+POST https://dash-decisive-assistant-for-scheduling.onrender.com/api/auth/login
+Content-Type: application/json
+
+{
+  "email":"vamshi.daripelli2005@gmail.com",
+  "password": "123456"
+}
+
+
+
+### 4. (Optional) Resend OTPs if they expire or were not received
+POST https://dash-decisive-assistant-for-scheduling.onrender.com/api/auth/resend-otp
+Content-Type: application/json
+
+{
+    "email": "your-actual-email@gmail.com"
+}
+
+
+### ---------------------------
+### TASK MANAGEMENT (Protected Routes)
+### ---------------------------
+# All requests below this line require a valid authentication token.
+
+### 5. Create a new task
+# This will create a task for the logged-in user.
+POST https://dash-decisive-assistant-for-scheduling.onrender.com/api/tasks
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Zjc5ODFmMzEzMjllZGY3NzMxZGUwNyIsImlhdCI6MTc2MjQ1MDYyMywiZXhwIjoxNzY1MDQyNjIzfQ.adc2cm-Nr5TD-TEQ2C8YCxEEPX6WfTDUXxkPZ0oJ8ak
+
+{
+  "title": "Lets work on Frontend for DASH ",
+  "description": "Create all React components and connect them to the backend API.",
+  "priority": 95,
+  "dueDate": "2025-11-15T18:00:00.000Z",
+  "isStarred": true,
+  "alarms": [
+    { "time": "2025-11-15T09:00:00.000Z" }
+  ]
+}
+
+
+
+### 6. Get all of the user's active tasks
+GET https://dash-decisive-assistant-for-scheduling.onrender.com/api/tasks
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Zjc5ODFmMzEzMjllZGY3NzMxZGUwNyIsImlhdCI6MTc2MjQ0OTYyOCwiZXhwIjoxNzY1MDQxNjI4fQ.Uc552bClZPHQeCTNppEWO8E8TJN0NsY6rpmaGpOI63Q
+
+
+
+### 7. Get only starred tasks
+GET https://dash-decisive-assistant-for-scheduling.onrender.com/api/tasks/starred
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Zjc5ODFmMzEzMjllZGY3NzMxZGUwNyIsImlhdCI6MTc2MjQ0OTYyOCwiZXhwIjoxNzY1MDQxNjI4fQ.Uc552bClZPHQeCTNppEWO8E8TJN0NsY6rpmaGpOI63Q
+
+
+
+### 8. Get only completed tasks
+GET https://dash-decisive-assistant-for-scheduling.onrender.com/api/tasks/completed
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZjYzNGMzMmVlY2FjMjIyYmEzZmJkNiIsImlhdCI6MTc2MDk2NjY4NCwiZXhwIjoxNzYzNTU4Njg0fQ.MVnxiCmJiE9N3bESgo0rNN-AfufES4zGTygmMFoY_Y0
+
+
+
+### 9. Get only deleted tasks (from the trash)
+GET https://dash-decisive-assistant-for-scheduling.onrender.com/api/tasks/deleted
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZjYzNGMzMmVlY2FjMjIyYmEzZmJkNiIsImlhdCI6MTc2MDk2NzExMSwiZXhwIjoxNzYzNTU5MTExfQ.Yr-r_km9ChXqu6ju0stpkRhhdzOVEjIuV29LHvA96gs
+
+
+### 10. Update a task (e.g., mark as completed)
+# IMPORTANT: Replace ':taskId' with an actual task ID from one of the GET requests above.
+PUT https://dash-decisive-assistant-for-scheduling.onrender.com/api/tasks/68f63b4dfd7e6402dbe5f8b0
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ZjYzNGMzMmVlY2FjMjIyYmEzZmJkNiIsImlhdCI6MTc2MDk2NzQ1MiwiZXhwIjoxNzYzNTU5NDUyfQ.2XFY7UGqFPD9COCppn_6LJPATfuhsAI_KOHJV8KcY3A
+
+{
+  "isCompleted": true,
+  "priority": 75
+}
+
+
+### 11. "Soft" delete a task (move to trash)
+# IMPORTANT: Replace ':taskId' with an actual task ID.
+DELETE https://dash-decisive-assistant-for-scheduling.onrender.com/api/tasks/:taskId
+Authorization: Bearer {{authToken}}
+
+### ---------------------------
+### AI FEATURES (Protected Routes)
+### ---------------------------
+
+### 12. Ask the AI Assistant about DASH
+# Send a question about the app to the Gemini API via our backend.
+POST https://dash-decisive-assistant-for-scheduling.onrender.com/api/ai/ask
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Zjc5ODFmMzEzMjllZGY3NzMxZGUwNyIsImlhdCI6MTc2MTE1NjIzMiwiZXhwIjoxNzYzNzQ4MjMyfQ.2Uvl_sEDqHZ_J5piQ4fvSiKRyVJQQQGPLsnd9fWXDwc
+
+
+{
+  "question": "List Out Features of DASH?"
+}
+
+
+### 13. Create a Task from Natural Language Text
+# Send plain text to the backend, which will ask Gemini to extract task details.
+POST https://dash-decisive-assistant-for-scheduling.onrender.com/api/ai/create-task-text
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Zjc5ODFmMzEzMjllZGY3NzMxZGUwNyIsImlhdCI6MTc2MTE1NjkyMCwiZXhwIjoxNzYzNzQ4OTIwfQ.69irTYNtQ3Ntr7uoyuxWH2bE9MnzFzldbgHkDh7Lwh4
+
+{
+  "textInput": "Schedule team sync meeting for tomorrow afternoon around 3pm, need to discuss project alpha progress"
+}
+
+### Another Example for Create Task from Text
+POST https://dash-decisive-assistant-for-scheduling.onrender.com/api/ai/create-task-text
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4Zjc5ODFmMzEzMjllZGY3NzMxZGUwNyIsImlhdCI6MTc2MTE1OTAxMCwiZXhwIjoxNzYzNzUxMDEwfQ.LqnPu7ZDczyLlIQTmU6EwtQ46Ldj75Vqb7ofugzi6B8
+
+
+{
+  "textInput": "i have a meeting at 10am tomorrow , remind me"
+}
