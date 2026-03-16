@@ -21,8 +21,18 @@ const userSchema = new mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, 'Password is required.'],
+        required: false, // Optional for Google Sign-In users
         minlength: 6,
+    },
+    googleUid: {
+        type: String,
+        required: false,
+        unique: true,
+        sparse: true, // Allows multiple null values
+    },
+    photoURL: {
+        type: String,
+        required: false,
     },
     isEmailVerified: {
         type: Boolean,
@@ -34,10 +44,9 @@ const userSchema = new mongoose.Schema({
     strict: true, // Ensures only defined fields are saved
 });
 
-// This function runs automatically before a user document is saved
-// It hashes the password if it has been modified
+// Hash password before saving (only if it exists and has been modified)
 userSchema.pre('save', async function(next) {
-    if (!this.isModified('password')) {
+    if (!this.password || !this.isModified('password')) {
         return next();
     }
     const salt = await bcrypt.genSalt(10);

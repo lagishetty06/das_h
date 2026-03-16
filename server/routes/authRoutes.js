@@ -4,9 +4,10 @@ const {
     verifyOtp,
     login,
     resendOtp,
-    updateProfile // Import the new function
+    updateProfile,
+    googleAuth,
 } = require('../controllers/authController');
-const authMiddleware = require('../middlewares/authMiddleware'); // Import the middleware
+const authMiddleware = require('../middlewares/authMiddleware');
 
 const router = express.Router();
 
@@ -15,10 +16,9 @@ router.post('/register', register);
 router.post('/verify-otp', verifyOtp);
 router.post('/login', login);
 router.post('/resend-otp', resendOtp);
+router.post('/google', googleAuth);
 
 // --- Protected Route ---
-// This route is for updating the user's profile.
-// It is protected by the authMiddleware, so only logged-in users can access it.
 router.put('/profile', authMiddleware, updateProfile);
 
 module.exports = router;

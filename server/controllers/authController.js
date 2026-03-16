@@ -141,6 +141,55 @@ exports.updateProfile = async (req, res) => {
     }
 };
 
+// 6. Google Sign-In / Sign-Up
+// Receives user info from frontend Firebase auth and issues a DASH JWT
+exports.googleAuth = async (req, res) => {
+    const { email, name, googleUid, photoURL } = req.body;
+
+    if (!email || !googleUid) {
+        return res.status(400).json({ message: 'Missing required Google account information.' });
+    }
+
+    try {
+        // Find existing user by email OR by googleUid
+        let user = await User.findOne({ $or: [{ email }, { googleUid }] });
+
+        if (user) {
+            // If user exists but doesn't have googleUid yet, link it
+            if (!user.googleUid) {
+                user.googleUid = googleUid;
+                if (photoURL) user.photoURL = photoURL;
+                await user.save();
+            }
+        } else {
+            // Create a new user for first-time Google sign-up
+            user = await User.create({
+                name: name || email.split('@')[0],
+                email,
+                googleUid,
+                photoURL: photoURL || null,
+                isEmailVerified: true, // Google accounts are pre-verified
+                // No password needed for Google users
+            });
+        }
+
+        res.json({
+            message: 'Google authentication successful',
+            token: generateToken(user._id),
+            user: {
+                _id: user._id,
+                name: user.name,
+                email: user.email,
+                photoURL: user.photoURL,
+            },
+        });
+    } catch (error) {
+        console.error('Google Auth Error:', error);
+        res.status(500).json({ message: 'Server error during Google authentication.' });
+    }
+};
+
+
 
 
 

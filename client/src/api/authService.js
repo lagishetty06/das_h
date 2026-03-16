@@ -31,20 +31,23 @@ const resendOtp = (email) => {
   return axios.post(`${API_URL}/resend-otp`, { email });
 };
 
-// --- THIS IS THE NEW FUNCTION ---
 const updateProfile = (profileData, token) => {
   const api = getApiClient(token);
-  // This calls the protected PUT /api/auth/profile route
   return api.put('/profile', profileData);
-}
+};
 
+// Google Sign-In via Firebase — sends user info, receives DASH JWT
+const googleAuth = (googleData) => {
+  return axios.post(`${import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/auth` : 'http://localhost:4000/api/auth'}/google`, googleData);
+};
 
 const authService = {
   register,
   verifyOtp,
   login,
   resendOtp,
-  updateProfile, // Add the new function to the export
+  updateProfile,
+  googleAuth,
 };
 
 export default authService;
