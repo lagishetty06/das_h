@@ -16,6 +16,20 @@ const { startReminderService } = require('./services/reminderService');
 const app = express();
 connectDB();
 
+app.get('/api/health', (req, res) => {
+    const mongooseStatus = require('mongoose').connection.readyState;
+    const statusMap = { 0: 'disconnected', 1: 'connected', 2: 'connecting', 3: 'disconnecting' };
+    res.json({
+        status: 'ok',
+        database: statusMap[mongooseStatus] || 'unknown',
+        env: {
+            DB_URL: process.env.DB_URL ? 'set' : 'missing',
+            JWT_SECRET: process.env.JWT_SECRET ? 'set' : 'missing',
+            GEMINI_API_KEY: process.env.GEMINI_API_KEY ? 'set' : 'missing'
+        }
+    });
+});
+
 // --- MIDDLEWARES ---
 app.use(cors({
   origin: '*', // Allow all origins for Vercel deployment

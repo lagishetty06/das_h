@@ -6,8 +6,7 @@ const connectDB = async () => {
         console.log('MongoDB connection successful.');
     } catch (err) {
         console.error('Error in MongoDB connection:', err.message);
-        // Exit process with failure if connection fails
-        process.exit(1);
+        // Do not exit process in serverless, let the request handle the failure
     }
 };
 
