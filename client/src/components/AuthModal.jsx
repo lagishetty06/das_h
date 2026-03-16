@@ -3,6 +3,8 @@ import { X } from 'lucide-react';
 import authService from '../api/authService';
 import { toast } from 'react-toastify';
 import useAuth from '../hooks/useAuth';
+import { signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '../firebase';
 
 // --- Reusable SVG Icons ---
 const EyeIcon = () => (
@@ -23,6 +25,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
   const [formData, setFormData] = useState({ name: '', email: '', phoneNumber: '', password: '' });
   const [emailOtp, setEmailOtp] = useState('');
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [verifyData, setVerifyData] = useState({ userId: '', email: '' });
   const { login } = useAuth();
@@ -110,8 +113,32 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
     }
   };
 
-  const handleGoogleSignIn = () => {
-    toast.info('Google Sign-In is currently in development (requires Google Cloud API setup).');
+  const handleGoogleSignIn = async () => {
+    setGoogleLoading(true);
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      
+      const response = await authService.googleAuth({
+        email: user.email,
+        name: user.displayName,
+        googleUid: user.uid,
+        photoURL: user.photoURL,
+      });
+      
+      login(response.data);
+      toast.success(`Welcome, ${user.displayName}! 🎉`);
+      handleClose();
+    } catch (err) {
+      if (err.code === 'auth/popup-closed-by-user') {
+        // Ignored
+      } else {
+        console.error('Google Sign-In Error:', err);
+        toast.error('Google sign-in failed. Please try again.');
+      }
+    } finally {
+      setGoogleLoading(false);
+    }
   };
 
   return (
@@ -194,7 +221,8 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
                 <button
                   type="button"
                   onClick={handleGoogleSignIn}
-                  className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-4 focus:outline-none focus:ring-gray-200 font-semibold rounded-lg text-sm px-5 py-3 text-center transform hover:scale-[1.02] transition-all duration-200 shadow-sm"
+                  disabled={loading || googleLoading}
+                  className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-4 focus:outline-none focus:ring-gray-200 font-semibold rounded-lg text-sm px-5 py-3 text-center transform hover:scale-[1.02] transition-all duration-200 shadow-sm disabled:opacity-60"
                 >
                   <svg className="w-5 h-5" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -203,7 +231,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
                     <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                     <path fill="none" d="M1 1h22v22H1z" />
                   </svg>
-                  Continue with Google
+                  {googleLoading ? 'Signing in with Google...' : 'Continue with Google'}
                 </button>
 
                 <p className="text-sm font-medium text-gray-600 text-center mt-4">
@@ -276,7 +304,8 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
                 <button
                   type="button"
                   onClick={handleGoogleSignIn}
-                  className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-4 focus:outline-none focus:ring-gray-200 font-semibold rounded-lg text-sm px-5 py-3 text-center transform hover:scale-[1.02] transition-all duration-200 shadow-sm"
+                  disabled={loading || googleLoading}
+                  className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 focus:ring-4 focus:outline-none focus:ring-gray-200 font-semibold rounded-lg text-sm px-5 py-3 text-center transform hover:scale-[1.02] transition-all duration-200 shadow-sm disabled:opacity-60"
                 >
                   <svg className="w-5 h-5" viewBox="0 0 24 24">
                     <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
@@ -285,7 +314,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
                     <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
                     <path fill="none" d="M1 1h22v22H1z" />
                   </svg>
-                  Continue with Google
+                  {googleLoading ? 'Signing in with Google...' : 'Continue with Google'}
                 </button>
 
                 <p className="text-sm font-medium text-gray-600 text-center mt-4">
