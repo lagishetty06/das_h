@@ -12,9 +12,11 @@ const generateToken = (id) => {
 // 1. Register User (Email only, phone is optional)
 exports.register = async (req, res) => {
     const { name, email, phoneNumber, password } = req.body;
+    console.log("Registration attempt for email:", email);
     try {
         const userExists = await User.findOne({ email });
         if (userExists) {
+            console.log("Registration failed: User already exists");
             return res.status(400).json({ message: 'User with this email already exists.' });
         }
 
@@ -22,17 +24,14 @@ exports.register = async (req, res) => {
         if (phoneNumber) {
             const phoneExists = await User.findOne({ phoneNumber });
             if (phoneExists) {
+                console.log("Registration failed: Phone exists");
                 return res.status(400).json({ message: 'This phone number is already registered.' });
             }
         }
 
-        // Make user verified automatically to skip OTP
-        const user = await User.create({ name, email, phoneNumber: phoneNumber || null, password, isEmailVerified: true });
-
-        // Temporarily skip generating/sending OTP
-        // const emailOtp = otpGenerator.generate(6, ...);
-        // await Otp.create(...);
-        // await sendEmail(...);
+        console.log("Creating user object...");
+        const user = await User.create({ name, email, phoneNumber: phoneNumber || undefined, password, isEmailVerified: true });
+        console.log("User created successfully with ID:", user._id);
 
         res.status(201).json({
             message: 'Registration successful! You are automatically verified.',
@@ -40,8 +39,8 @@ exports.register = async (req, res) => {
         });
 
     } catch (error) {
-        console.error("Registration Error:", error);
-        res.status(500).json({ message: 'Server error during registration.' });
+        console.error("CRITICAL Registration Error:", error);
+        res.status(500).json({ message: 'Server error during registration.', debug: error.message });
     }
 };
 
