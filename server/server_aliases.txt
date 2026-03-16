@@ -1,0 +1,14 @@
+Vercel CLI 41.4.1
+Fetching aliases under saicharans-projects-82a4278f
+> aliases found under saicharans-projects-82a4278f [598ms]
+  source                                                      url                                                                         age    
+  das-2pz5odl5l-saicharans-projects-82a4278f.vercel.app       das-h-saicharans-projects-82a4278f.vercel.app                               57m    
+  das-2pz5odl5l-saicharans-projects-82a4278f.vercel.app       das-h-lagishettysaicharan3-9386-saicharans-projects-82a4278f.vercel.app     57m    
+  das-2pz5odl5l-saicharans-projects-82a4278f.vercel.app       das-h-peach.vercel.app                                                      57m    
+  server-df2wrmy4n-saicharans-projects-82a4278f.vercel.app    server-saicharans-projects-82a4278f.vercel.app                               2h    
+  server-df2wrmy4n-saicharans-projects-82a4278f.vercel.app    server-lagishettysaicharan3-9386-saicharans-projects-82a4278f.vercel.app     2h    
+  server-df2wrmy4n-saicharans-projects-82a4278f.vercel.app    server-sand-kappa-36.vercel.app                                              2h    
+  client-yl2658ese-saicharans-projects-82a4278f.vercel.app    client-lagishettysaicharan3-9386-saicharans-projects-82a4278f.vercel.app     7d    
+  client-yl2658ese-saicharans-projects-82a4278f.vercel.app    client-saicharans-projects-82a4278f.vercel.app                               7d    
+  client-yl2658ese-saicharans-projects-82a4278f.vercel.app    client-dusky-xi.vercel.app                                                   7d    
+

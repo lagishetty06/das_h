@@ -1,0 +1,34 @@
+Vercel CLI 41.4.1
+The "--limit" option was ignored because it is now deprecated. Please remove it.
+Fetching deployment "server-sand-kappa-36.vercel.app" in saicharans-projects-82a4278f
+WARN! This command now displays runtime logs. To access your build logs, run `vercel inspect --logs server-l4ic6kxwg-saicharans-projects-82a4278f.vercel.app`
+Displaying runtime logs for deployment server-l4ic6kxwg-saicharans-projects-82a4278f.vercel.app (dpl_4JCpLBkL1t34Gf8SCVY7byt2zjGU) starting from Mar Mo 22:59:42.85
+
+waiting for new logs...
+23:00:04.70  Γä╣∩╕Å  POST  ---  server-sand-kappa-36.vercel.app  ╞Æ  /api/auth/register
+----------------------------------------------------------------------------------
+Error in MongoDB connection: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+
+waiting for new logs...
+23:00:04.70  Γä╣∩╕Å  POST  ---  server-sand-kappa-36.vercel.app  ╞Æ  /api/auth/register
+----------------------------------------------------------------------------------
+Node.js process exited with exit status: 1. The logs above can help with debugging the issue.
+
+waiting for new logs...
+23:01:29.91  Γä╣∩╕Å  GET  ---  server-sand-kappa-36.vercel.app  ╞Æ  /api/health
+--------------------------------------------------------------------------
+[dotenv@17.2.3] injecting env (1) from .env -- tip: ΓÜÖ∩╕Å  enable debug logging with { debug: true }
+
+waiting for new logs...
+23:02:00.29  Γä╣∩╕Å  GET  ---  server-sand-kappa-36.vercel.app  ╞Æ  /api/health
+--------------------------------------------------------------------------
+Error in MongoDB connection: Could not connect to any servers in your MongoDB Atlas cluster. One common reason is that you're trying to access the database from an IP that isn't whitelisted. Make sure your current IP address is on your Atlas cluster's IP whitelist: https://www.mongodb.com/docs/atlas/security-whitelist/
+
+waiting for new logs...
+23:02:00.29  Γä╣∩╕Å  GET  ---  server-sand-kappa-36.vercel.app  ╞Æ  /api/health
+--------------------------------------------------------------------------
+Node.js process exited with exit status: 1. The logs above can help with debugging the issue.
+
+waiting for new logs...
+WARN! Exceeded query duration limit of 5 minutes
+

@@ -1,0 +1,11 @@
+Vercel CLI 41.4.1
+Retrieving projectΓÇª
+Fetching deployments in saicharans-projects-82a4278f
+> Deployments for saicharans-projects-82a4278f/server [297ms]
+https://server-l4ic6kxwg-saicharans-projects-82a4278f.vercel.app
+
+  Age     Deployment                                                           Status      Environment     Duration     Username                      
+  5m      https://server-l4ic6kxwg-saicharans-projects-82a4278f.vercel.app     ΓùÅ Ready     Production      11s          lagishettysaicharan3-9386     
+  13m     https://server-4pfuruqnf-saicharans-projects-82a4278f.vercel.app     ΓùÅ Ready     Production      13s          lagishettysaicharan3-9386     
+
+https://server-4pfuruqnf-saicharans-projects-82a4278f.vercel.app

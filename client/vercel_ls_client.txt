@@ -1,0 +1,21 @@
+Vercel CLI 41.4.1
+Retrieving projectΓÇª
+Fetching deployments in saicharans-projects-82a4278f
+> Deployments for saicharans-projects-82a4278f/client [309ms]
+
+  Age     Deployment                                                           Status      Environment     Duration     Username                      
+  7m      https://client-yl2658ese-saicharans-projects-82a4278f.vercel.app     ΓùÅ Ready     Production      12s          lagishettysaicharan3-9386     
+  23m     https://client-kzjlo845o-saicharans-projects-82a4278f.vercel.app     ΓùÅ Ready     Production      12s          lagishettysaicharan3-9386     
+  30m     https://client-5kxwgyl7g-saicharans-projects-82a4278f.vercel.app     ΓùÅ Ready     Production      12s          lagishettysaicharan3-9386     
+  51m     https://client-6fd9jjlwu-saicharans-projects-82a4278f.vercel.app     ΓùÅ Ready     Production      15s          lagishettysaicharan3-9386     
+  2h      https://client-iwwqbnrq1-saicharans-projects-82a4278f.vercel.app     ΓùÅ Ready     Production      13s          lagishettysaicharan3-9386     
+https://client-yl2658ese-saicharans-projects-82a4278f.vercel.app
+https://client-kzjlo845o-saicharans-projects-82a4278f.vercel.app
+https://client-5kxwgyl7g-saicharans-projects-82a4278f.vercel.app
+https://client-6fd9jjlwu-saicharans-projects-82a4278f.vercel.app
+https://client-iwwqbnrq1-saicharans-projects-82a4278f.vercel.app
+  2h      https://client-pool9lrml-saicharans-projects-82a4278f.vercel.app     ΓùÅ Ready     Production      12s          lagishettysaicharan3-9386     
+https://client-pool9lrml-saicharans-projects-82a4278f.vercel.app
+  7d      https://client-4izgy23fb-saicharans-projects-82a4278f.vercel.app     ΓùÅ Ready     Production      18s          lagishettysaicharan3-9386     
+
+https://client-4izgy23fb-saicharans-projects-82a4278f.vercel.app
