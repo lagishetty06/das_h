@@ -70,10 +70,11 @@ const RegisterPage = () => {
       toast.success(`Welcome aboard, ${user.displayName}! 🎉`);
     } catch (err) {
       if (err.code === 'auth/popup-closed-by-user') {
-        // User closed popup, no error needed
+        // Ignored
       } else {
         console.error('Google sign-up error:', err);
-        toast.error('Google sign-up failed. Please try again.');
+        const errorMsg = err.code ? `Google sign-up failed: ${err.code}` : 'Google sign-up failed. Please try again.';
+        toast.error(errorMsg);
       }
     } finally {
       setGoogleLoading(false);

@@ -70,10 +70,11 @@ const LoginPage = () => {
       toast.success(`Welcome, ${user.displayName}! 🎉`);
     } catch (err) {
       if (err.code === 'auth/popup-closed-by-user') {
-        // User closed popup, no error needed
+        // Ignored
       } else {
         console.error('Google login error:', err);
-        toast.error('Google sign-in failed. Please try again.');
+        const errorMsg = err.code ? `Google login failed: ${err.code}` : 'Google sign-in failed. Please try again.';
+        toast.error(errorMsg);
       }
     } finally {
       setGoogleLoading(false);
