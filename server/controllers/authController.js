@@ -34,8 +34,9 @@ exports.register = async (req, res) => {
         console.log("User created successfully with ID:", user._id);
 
         res.status(201).json({
-            message: 'Registration successful! You are automatically verified.',
-            userId: user._id,
+            message: 'Registration successful! Welcome to DASH.',
+            token: generateToken(user._id),
+            user: { _id: user._id, name: user.name, email: user.email },
         });
 
     } catch (error) {

@@ -45,10 +45,8 @@ const RegisterPage = () => {
     setLoading(true);
     try {
       const response = await authService.register(formData);
-      toast.success('Registration successful! Check your email for a code.');
-      navigate('/verify-otp', {
-        state: { userId: response.data.userId, email: formData.email }
-      });
+      login(response.data);
+      toast.success('Registration successful! Welcome to DASH.');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {

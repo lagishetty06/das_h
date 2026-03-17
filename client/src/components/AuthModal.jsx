@@ -74,12 +74,9 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
     setLoading(true);
     try {
       const response = await authService.register(formData);
-      toast.success('Registration successful! You can now log in.');
-      // Skip the verify step since OTP is disabled
-      // setVerifyData({ userId: response.data.userId, email: formData.email });
-      // setMode('verify');
-      resetForm();
-      setMode('login');
+      login(response.data);
+      toast.success('Registration successful! Welcome to DASH.');
+      handleClose();
     } catch (err) {
       toast.error(err.response?.data?.message || 'Registration failed. Please try again.');
     } finally {
