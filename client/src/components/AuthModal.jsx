@@ -131,7 +131,8 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'login' }) => {
         // Ignored
       } else {
         console.error('Google Sign-In Error:', err);
-        toast.error('Google sign-in failed. Please try again.');
+        const errorMsg = err.code ? `Google login failed: ${err.code}` : (err.response?.data?.message || 'Google sign-in failed. Please try again.');
+        toast.error(errorMsg);
       }
     } finally {
       setGoogleLoading(false);
