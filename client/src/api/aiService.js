@@ -3,7 +3,7 @@ import axios from 'axios';
 // Use VITE_API_URL from environment variables, or fallback to localhost for development
 const API_URL = import.meta.env.VITE_API_URL
   ? `${import.meta.env.VITE_API_URL}/ai`
-  : 'http://localhost:4000/api/ai';
+  : 'https://server-sand-kappa-36.vercel.app/api/ai';
 
 // Helper function to create an axios instance with the auth token
 const getApiClient = () => {

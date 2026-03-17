@@ -1,0 +1,14 @@
+Vercel CLI 41.4.1
+Retrieving projectΓÇª
+> Environment Variables found for saicharans-projects-82a4278f/das-h [1s]
+
+ name                                       value               environments        created    
+ VITE_FIREBASE_MESSAGING_SENDER_ID          Encrypted           Production          11h ago    
+ VITE_FIREBASE_STORAGE_BUCKET               Encrypted           Production          11h ago    
+ VITE_FIREBASE_MEASUREMENT_ID               Encrypted           Production          11h ago    
+ VITE_FIREBASE_APP_ID                       Encrypted           Production          11h ago    
+ VITE_FIREBASE_PROJECT_ID                   Encrypted           Production          11h ago    
+ VITE_FIREBASE_AUTH_DOMAIN                  Encrypted           Production          11h ago    
+ VITE_FIREBASE_API_KEY                      Encrypted           Production          11h ago    
+ VITE_API_URL                               Encrypted           Production          11h ago    
+

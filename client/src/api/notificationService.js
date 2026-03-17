@@ -3,7 +3,7 @@ import axios from 'axios';
 // Use VITE_API_URL from environment variables, or fallback to localhost for development
 const API_URL = import.meta.env.VITE_API_URL
   ? `${import.meta.env.VITE_API_URL}/notifications`
-  : 'http://localhost:4000/api/notifications';
+  : 'https://server-sand-kappa-36.vercel.app/api/notifications';
 
 const getApiClient = (token) => {
   return axios.create({

@@ -3,7 +3,7 @@ import axios from 'axios';
 // Use VITE_API_URL from environment variables, or fallback to localhost for development
 const API_URL = import.meta.env.VITE_API_URL
   ? `${import.meta.env.VITE_API_URL}/auth`
-  : 'http://localhost:4000/api/auth';
+  : 'https://server-sand-kappa-36.vercel.app/api/auth';
 
 const getApiClient = (token) => {
   return axios.create({
@@ -38,7 +38,7 @@ const updateProfile = (profileData, token) => {
 
 // Google Sign-In via Firebase — sends user info, receives DASH JWT
 const googleAuth = (googleData) => {
-  return axios.post(`${import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/auth` : 'http://localhost:4000/api/auth'}/google`, googleData);
+  return axios.post(`${import.meta.env.VITE_API_URL ? `${import.meta.env.VITE_API_URL}/auth` : 'https://server-sand-kappa-36.vercel.app/api/auth'}/google`, googleData);
 };
 
 const authService = {

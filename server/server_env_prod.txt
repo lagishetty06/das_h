@@ -1,0 +1,11 @@
+Vercel CLI 41.4.1
+Retrieving projectΓÇª
+> Environment Variables found for saicharans-projects-82a4278f/server [496ms]
+
+ name               value               environments        created    
+ GEMINI_API_KEY     Encrypted           Production          11h ago    
+ EMAIL_PASS         Encrypted           Production          11h ago    
+ EMAIL_USER         Encrypted           Production          11h ago    
+ JWT_SECRET         Encrypted           Production          11h ago    
+ DB_URL             Encrypted           Production          11h ago    
+
